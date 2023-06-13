@@ -1,0 +1,96 @@
+<%- include('./components/header')%>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">
+                <img src="/Matanflix.png" alt="logo" class="img-fluid" style="width: 50px; height: 50px;" />
+            </a>
+
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page">Welcome back, <%= user.UserName %></a>
+                    </li>
+                    <li class="nav-item d-flex">
+                        <a href="/" class="nav-link"><i class="bi bi-binoculars" style="margin-right: 5px;"></i>User
+                            View</a>
+                    </li>
+                    <li class="nav-item d-flex">
+                        <a href="/movies" class="nav-link"><i class="bi bi-film"
+                                style="margin-right: 5px;"></i>Movies</a>
+                    </li>
+                    <li class="nav-item d-flex">
+                        <a href="/users" class="nav-link active"><i class="bi bi-people"
+                                style="margin-right: 5px;"></i>Users</a>
+                    </li>
+                </ul>
+
+            </div>
+            <ul class="nav  navbar-nav navbar-right">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/logout">Logout<i style="margin-left: 5px;"
+                            class="icon bi bi-box-arrow-right"></i></a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="content container col-lg-9  justify-content-center align-items-center">
+            <div class="row d-flex  justify-content-center align-items-center"
+                style="border-radius: 1rem; height: 50vh; margin-top:15px;">
+                <%if(users.length> 0){%>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>UserName</th>
+                                <th>Password</th>
+                                <th>Admin</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for(let rec of users){%>
+                                <tr>
+                                    <td>
+                                        <%= rec.UserName%>
+                                    </td>
+                                    <td>
+                                        <%= rec.Password%>
+                                    </td>
+                                    <td>
+                                        <% if (rec.IsAdmin) { %>
+                                            <i class="bi bi-check-circle-fill text-success"></i>
+                                            <% } else { %>
+                                                <i class="bi bi-x-circle-fill text-danger"></i>
+                                                <% } %>
+                                    </td>
+                                    <td>
+                                        <a class="btn btnflix" href="/users/<%= rec.UserName%>">
+                                            Edit
+                                        </a>
+                                        <form style="display: inline;" id="delete_user<%= rec.UserName %>" method="post"
+                                            action="/functions/delete_user/<%= rec.UserName %>">
+                                            <button form="delete_user<%= rec.UserName %>" type="submit"
+                                                class="btn  btnflix">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <%}%>
+                        </tbody>
+                    </table>
+                    <%} else {%>
+                        <p>No data for you</p>
+                        <%}%>
+
+
+
+            </div>
+        </div>
+
+        <%- include('./components/footer')%>
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+                crossorigin="anonymous"></script>
+    </body>
+
+    </html>

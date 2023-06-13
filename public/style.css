@@ -1,0 +1,267 @@
+body {
+    height: 100%;
+    background: linear-gradient(#ec4949, #f22929);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.login {
+    margin-top: 2%;
+}
+
+.error-message {
+    display: none;
+    color: red;
+}
+
+.form-switch .form-check-input {
+    --bs-form-switch-bg: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 8 8"><circle r="3" fill="rgba%280, 0, 0, 0.25%29"/></svg>');
+}
+
+.form-switch .form-check-input:focus {
+    border-color: rgba(0, 0, 0, 0.25);
+    outline: 0;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 0 0.2rem rgba(255, 47, 69, 0.25);
+    --bs-form-switch-bg: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 8 8"><circle r="3" fill="%23fc3939"/></svg>');
+}
+
+.form-switch .form-check-input:checked {
+    background-color: #ff0101;
+    border: none;
+    --bs-form-switch-bg: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 8 8"><circle r="3" fill="%23000000"/></svg>');
+}
+
+.icon {
+    margin-right: 5px;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+    border-color: linear-gradient(#ff0101, #fc3939);
+    border-width: 0px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 0 0.2rem rgba(255, 47, 69, 0.25);
+    outline: 1 none;
+}
+
+.btnflix {
+    border-width: 1px !important;
+    border-color: black !important;
+    background: linear-gradient(#fc3939, #de4646) !important;
+}
+
+
+.btnflix:hover {
+    border-width: 1px !important;
+    color: black !important;
+    border-color: black !important;
+    background: linear-gradient(#fc3939, #de4646) !important;
+}
+
+.btnflix:focus,
+.btnflix.focus {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 0 0.2rem rgba(255, 0, 25, 0.25) !important;
+}
+
+.btnflix.disabled,
+.btnflix:disabled {
+    border-width: 1px !important;
+    color: black !important;
+    border-color: black !important;
+    background: linear-gradient(#fc3939, #de4646) !important;
+}
+
+.btnflix:not(:disabled):not(.disabled):active,
+.btnflix:not(:disabled):not(.disabled).active,
+.show>.btnflix.dropdown-toggle {
+    border-width: 1px !important;
+    color: black !important;
+    border-color: black !important;
+    background: linear-gradient(#fc3939, #de4646) !important;
+}
+
+.btnflix:not(:disabled):not(.disabled):active:focus,
+.btnflix:not(:disabled):not(.disabled).active:focus,
+.show>.btnflix.dropdown-toggle:focus {
+    border-width: transparent !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 0 0.2rem rgba(255, 0, 25, 0.25) !important;
+}
+
+.btn-outline-primary {
+    border-width: 1px !important;
+    color: black !important;
+    border-color: black !important;
+    background: linear-gradient(#fc3939, #de4646) !important;
+}
+
+.btn-outline-primary:hover {
+    border-width: 1px !important;
+    color: black !important;
+    border-color: black !important;
+    background: linear-gradient(#fc3939, #de4646) !important;
+}
+
+.btn-outline-primary:focus,
+.btn-outline-primary.focus {
+    border-width: transparent !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 0 0.2rem rgba(255, 47, 69, 0.25) !important;
+}
+
+.btn-outline-primary.disabled,
+.btn-outline-primary:disabled {
+    border-width: 1px !important;
+    color: black !important;
+    border-color: black !important;
+    background: linear-gradient(#fc3939, #de4646) !important;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.show>.btn-outline-primary.dropdown-toggle {
+    border-width: 1px !important;
+    color: black !important;
+    border-color: black !important;
+    background: linear-gradient(#fc3939, #de4646) !important;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled):active:focus,
+.btn-outline-primary:not(:disabled):not(.disabled).active:focus,
+.show>.btn-outline-primary.dropdown-toggle:focus {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 0 0.2rem rgba(255, 47, 69, 0.25) !important;
+}
+
+
+.content {
+    min-height: calc(100vh - 25vh);
+}
+
+.footer {
+    margin-top: 0;
+}
+
+
+
+
+
+
+.input-group {
+    width: 204px
+}
+
+.form-control {
+    border: 1px solid #ed433e
+}
+
+.form-control[readonly] {
+    background-color: #ffffff;
+    opacity: 1
+}
+
+
+
+.bootstrap-datetimepicker-widget table td.today:before {
+    content: '';
+    display: inline-block;
+    border: 0 0 7px 7px solid transparent;
+    border-bottom-color: #ed433e !important;
+    border-top-color: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+}
+
+.bootstrap-datetimepicker-widget table td.active,
+.bootstrap-datetimepicker-widget table td.active:hover {
+    background-color: #ed433e !important;
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.bootstrap-datetimepicker-widget table td span.active {
+    background-color: #ed433e !important;
+}
+
+
+
+/* Bootstrap 5 CSS and icons included */
+:root {
+    --colorPrimaryNormal: #ed433e;
+    --colorPrimaryDark: #00979f;
+    --colorPrimaryGlare: #fc3939;
+    --colorPrimaryHalf: #ed433e;
+    --colorPrimaryQuarter: #bfecee;
+    --colorPrimaryEighth: #fc3939;
+    --colorPrimaryPale: transparent;
+    --colorPrimarySeparator: #f3f5f7;
+    --colorPrimaryOutline: #dff5f7;
+    --colorButtonNormal: #047980;
+    --colorButtonHover: #00cdd7;
+    --colorLinkNormal: #00979f;
+    --colorLinkHover: #00cdd7;
+}
+
+.upload_dropZone {
+    color: #0f3c4b;
+    border-radius: 50px;
+    background-color: transparent;
+    outline: 3px dashed #ed433e;
+    outline-offset: -12px;
+    transition:
+        outline-offset 0.2s ease-out,
+        outline-color 0.3s ease-in-out,
+        background-color 0.2s ease-out;
+}
+
+.upload_dropZone.highlight {
+    outline-offset: -4px;
+    outline-color: #ed433e;
+    background-color: #fc3939;
+}
+
+.upload_svg {
+    fill: #ed433e;
+}
+
+.carousel .left>i,
+.carousel .right>i {
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.carousel .right>i {
+    left: auto;
+    right: 0px;
+}
+
+
+.ticket {
+    display: inline-block;
+    font-size: 80px;
+    color: rgb(45, 193, 45);
+    cursor: pointer;
+    -webkit-text-stroke: 3px #000000;
+}
+
+.ticket.disabled {
+    color: gray;
+    cursor: not-allowed;
+}
+
+.ticket.selected {
+    color: red;
+}
