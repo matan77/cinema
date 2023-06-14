@@ -18,11 +18,11 @@ router.get('/', async (req, res) => {
     }).then(movies => {
         User.findByPk(req.session.UserName).then(user => {
             res.render('index', {
-                pageTitle: 'Matanflix', user: user, movies: movies, moment
+                pageTitle: 'Matanflix', user: user, movies: movies, moment, error: req.flash('error')
             });
         }).catch(error => {
             res.render('index', {
-                pageTitle: 'Matanflix', user: null, movies: movies, moment
+                pageTitle: 'Matanflix', user: null, movies: movies, moment, error: req.flash('error')
             });
         });
 
@@ -158,6 +158,18 @@ router.get('/buy_tickets/:Id', async (req, res) => {
     const movieId = req.params.Id;
     getSeats(movieId)
         .then(seatsArr => {
+            let isSoldOut = true;
+            for (let i = 0; i < seatsArr.length; i++) {
+                for (let j = 0; j < seatsArr[i].length; j++) {
+                    if (seatsArr[i][j] !== 2) {
+                        isSoldOut = false;
+                    }
+                }
+            }
+            if (isSoldOut) {
+                req.flash('error', 'The tickets are sold out');
+                return res.redirect('/')
+            }
 
             Movie.findByPk(movieId)
                 .then(movie => {
@@ -181,18 +193,6 @@ router.get('/buy_tickets/:Id', async (req, res) => {
 
 });
 
-router.get('/add_movie/', async (req, res) => {
-    User.findByPk(req.session.UserName).then(
-        user => {
-            res.render('movieAdd', {
-                pageTitle: 'add movie', error: req.flash('error'), user: user, moment
-            });
-        })
-        .catch(error => {
-            console.log(error.message)
-            return res.redirect('/movies')
-        })
-});
 
 router.get('/order', async (req, res) => {
     let options = req.flash('order')[0];
