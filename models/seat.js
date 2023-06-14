@@ -3,17 +3,20 @@ import database from "./database.js";
 import Movie from "./movie.js";
 
 const Seat = database.define('seat', {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
+    Row: {
+        type: Sequelize.STRING,
         primaryKey: true
     },
-    Row: Sequelize.STRING,
-    Column: Sequelize.STRING
+    Column: {
+        type: Sequelize.STRING,
+        primaryKey: true
+    },
+    movieId: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    }
 });
 
 Seat.belongsTo(Movie);
-
 
 export default Seat;

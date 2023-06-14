@@ -135,36 +135,75 @@ router.get('/add_movie/', async (req, res) => {
 });
 
 const getSeats = (movieId) => {
-    const seatsArr = Array.from({ length: rows }, () => Array.from({ length: cols }, () => 0));
-    console.log(seatsArr);
-    Seat.findAll({ where: { movieId: movieId } }).then(
-        seats => {
-            for (seat of seats) {
-                seatsArr[seat.Row][seat.col] = 2;
-            }
-        }
-    )
-    return seatsArr;
+    return new Promise((resolve, reject) => {
+        let seatsArr = Array.from({ length: rows }, () => Array.from({ length: cols }, () => 0));
+
+        Seat.findAll({ where: { movieId: movieId } })
+            .then(seats => {
+                for (let seat of seats) {
+                    seatsArr[seat.Row][seat.Column] = 2;
+                }
+                resolve(seatsArr);
+            })
+            .catch(error => {
+                console.log(error.message);
+                reject(error);
+            });
+    });
 };
+
 
 
 router.get('/buy_tickets/:Id', async (req, res) => {
     const movieId = req.params.Id;
-    Movie.findByPk(movieId)
-        .then(movie => {
-            User.findByPk(req.session.UserName).then(
-                user => {
-                    res.render('ticketOrder', {
-                        pageTitle: 'ticket order', error: req.flash('error'), user: user, moment, movie: movie, seatsArr: getSeats(movieId)
+    getSeats(movieId)
+        .then(seatsArr => {
 
-                    });
-                })
-                .catch(error => {
-                    console.log(error.message)
-                    return res.redirect('/')
+            Movie.findByPk(movieId)
+                .then(movie => {
+                    User.findByPk(req.session.UserName).then(
+                        user => {
+                            res.render('ticketOrder', {
+                                pageTitle: 'ticket order', error: req.flash('error'), user: user, moment, movie: movie, seatsArr: seatsArr
+
+                            });
+                        })
+                        .catch(error => {
+                            console.log(error.message)
+                            return res.redirect('/')
+                        })
                 })
         })
+        .catch(error => {
+            console.error('Error retrieving seats:', error);
+
+        });
+
 });
+
+router.get('/add_movie/', async (req, res) => {
+    User.findByPk(req.session.UserName).then(
+        user => {
+            res.render('movieAdd', {
+                pageTitle: 'add movie', error: req.flash('error'), user: user, moment
+            });
+        })
+        .catch(error => {
+            console.log(error.message)
+            return res.redirect('/movies')
+        })
+});
+
+router.get('/order', async (req, res) => {
+    let options = req.flash('order')[0];
+    if (!options) {
+        return res.redirect('/');
+    }
+    options.moment = moment;
+    res.render('order', options);
+
+});
+
 
 
 export default router;

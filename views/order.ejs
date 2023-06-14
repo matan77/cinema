@@ -75,89 +75,44 @@
                 </div>
 
 
+
                 <div class="col">
-                    <h1 style="margin-top: 10px;">Choose Seats</h1>
-                    <% if (error !="" ) { %>
-                        <div class="alert alert-danger justify-content-center text-center"
-                            style="margin: auto;width: fit-content;">
-                            <%= error %>
-                        </div>
-                        <% } %>
-
-                            <% for (let i=0; i < seatsArr.length; i++) { %>
-                                <div row class="fs-1">
-                                    <% for (let j=0; j < seatsArr[i].length; j++) { if (seatsArr[i][j]==2) {%>
-                                        <i id="<%=i+'|'+j%>" class="bi ticket disabled bi-ticket-fill"></i>
-
-                                        <% }else{%>
-                                            <i id="<%=i+'|'+j%>" class="bi ticket bi-ticket-fill selected"
-                                                onclick="takeSeat(this)"></i>
-                                            <% } }%>
-                                </div>
-                                <% } %>
-                                    <form id="buy" method="post" action="/functions/buy/<%= movie.Id %>">
-                                        <input type="hidden" name="seatsJson" id="selectedSeatsArr" />
-                                        <button form="buy" type="submit" onclick="setSelectedSeats()"
-                                            class="btn btnflix">Buy</button>
-                                    </form>
+                    <h1 style="margin-top: 10px;">Order Completed</h1>
+                    <h5 style="margin-top: 10px;">Seats</h1>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Row</th>
+                                    <th>Column</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%for(let seat of seats){%>
+                                    <tr>
+                                        <td>
+                                            <%= String.fromCharCode('A'.charCodeAt(0) + seat.Row) %>
+                                        </td>
+                                        <td>
+                                            <%= seat.Column + 1%>
+                                        </td>
+                                    </tr>
+                                    <%}%>
+                                        <tr>
+                                            <td colspan="2">Order price is
+                                                <%= movie.Price * seats.length %> ₪
+                                            </td>
+                                        </tr>
+                            </tbody>
+                        </table>
                 </div>
             </div>
-            <script>
-                const selectedSeatsArr = [];
+        </div>
 
-                const setSelectedSeats = () => {
-                    let selectedSeatsArrEl = document.getElementById("selectedSeatsArr");
-                    selectedSeatsArrEl.value = JSON.stringify(selectedSeatsArr);
-                }
-                const takeSeat = (ticket) => {
-                    ticket.selected = !ticket.selected;
-                    ticket.classList.toggle("flipped");
-                    if (ticket.selected) {
-                        ticket.classList.remove('selected');
-                        ticket.setAttribute('selected', '');
-                        let pos = ticket.id.split("|");
+        <%- include('./components/footer')%>
 
-                        let Row = parseInt(pos[0]);
-                        let Column = parseInt(pos[1]);
-
-                        selectedSeatsArr.push({
-                            Row: Row,
-                            Column: Column
-                        })
-
-                    }
-                    else {
-                        ticket.classList.add('selected');
-                        ticket.removeAttribute('selected');
-                        let pos = ticket.id.split("|");
-
-                        let Row = parseInt(pos[0]);
-                        let Column = parseInt(pos[1]);
-                        let toRemoveIndex = -1;
-
-                        for (let i = 0; i < selectedSeatsArr.length; i++) {
-                            if (
-                                selectedSeatsArr[i].Row === Row &&
-                                selectedSeatsArr[i].Column === Column
-                            ) {
-                                toRemoveIndex = i;
-                                break;
-                            }
-                        }
-
-
-                        if (toRemoveIndex !== -1) {
-                            selectedSeatsArr.splice(toRemoveIndex, 1);
-                        }
-
-                    }
-                }
-            </script>
-            <%- include('./components/footer')%>
-
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-                    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-                    crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+                crossorigin="anonymous"></script>
     </body>
 
     </html>

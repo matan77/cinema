@@ -4,6 +4,8 @@ import fs from "fs";
 import User from '../models/user.js';
 import Movie from '../models/movie.js';
 import Seat from '../models/seat.js';
+import database from '../models/database.js';
+
 const router = express.Router();
 
 router.post('/login', async (req, res) => {
@@ -169,6 +171,64 @@ router.post('/delete_movie/:Id', async (req, res) => {
             return res.redirect('/moveis');
         })
 });
+
+
+router.post('/create_movie', async (req, res) => {
+
+    uploadCreate.single('Image')(req, res, err => {
+        if (err) {
+            console.log(err);
+        }
+        return res.redirect('/movies');
+    })
+});
+
+
+
+router.post('/buy/:movieId', async (req, res) => {
+    const movieId = req.params.movieId;
+    const { seatsJson } = req.body;
+    const seats = JSON.parse(seatsJson);
+
+    if (seats === undefined || seats === null || seats.length == 0) {
+        req.flash('error', 'No seats were selected');
+        return res.redirect('/buy_tickets/' + movieId);
+    }
+    try {
+        const result = await database.transaction(async (t) => {
+            for (let seat of seats) {
+                await Seat.create({
+                    Row: seat.Row,
+                    Column: seat.Column,
+                    movieId: movieId
+                }, { transaction: t });
+            }
+        });
+        User.findByPk(req.session.UserName).then(
+            user => {
+
+                Movie.findByPk(movieId)
+                    .then(movie => {
+                        req.flash('order',
+                            {
+                                pageTitle: 'order completed', moment: null, user: user, movie: movie, seats: seats
+                            });
+                        return res.redirect('/order');
+                    });
+            });
+
+    } catch (error) {
+        console.log(error);
+        req.flash('error', 'One or more seats are occupied');
+        return res.redirect('/buy_tickets/' + movieId);
+    }
+});
+
+
+
+
+
+
 
 
 export default router;

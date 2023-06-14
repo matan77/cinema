@@ -150,6 +150,7 @@ input[type="color"]:focus,
 
 .footer {
     margin-top: 0;
+    font-size: var(--bs-body-font-size);
 }
 
 
@@ -255,6 +256,8 @@ input[type="color"]:focus,
     color: rgb(45, 193, 45);
     cursor: pointer;
     -webkit-text-stroke: 3px #000000;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
 }
 
 .ticket.disabled {
@@ -263,5 +266,9 @@ input[type="color"]:focus,
 }
 
 .ticket.selected {
-    color: red;
+    color: rgb(207, 0, 0);
 }
+
+.flipped{
+    transform: rotateY(180deg);
+  }
